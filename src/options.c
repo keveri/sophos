@@ -13,7 +13,7 @@ static void help_and_exit() {
 
 options parse_options(int argc, char **argv) {
     if (argc < 3) help_and_exit();
-    int8_t c;
+    int32_t c;
     uint32_t port = 0;
     char *fname = "";
     while ((c = getopt(argc, argv, "p:f:")) != -1) {

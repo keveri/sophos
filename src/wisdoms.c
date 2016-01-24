@@ -4,10 +4,10 @@
 #include <string.h>
 
 /* Struct for holding wisdom array pointer and the item count. */
-typedef struct warray { char **items; uint16_t count; } warray;
+typedef struct warray { char **items; uint32_t count; } warray;
 
-static void free_array_and_exit(char **array, uint16_t size) {
-    for (uint16_t i = 0; i < size; i++)
+static void free_array_and_exit(char **array, uint32_t size) {
+    for (uint32_t i = 0; i < size; i++)
         free(array[i]);
     free(array);
     exit(1);
@@ -27,8 +27,8 @@ warray read_wisdoms(const char *fname) {
         exit(1);
     }
 
-    uint16_t max_lines = 36;
-    uint16_t buff_size = 512;
+    uint32_t max_lines = 36;
+    uint32_t buff_size = 512;
 
     char *line_buff = malloc(buff_size);
     if (line_buff == NULL) free_and_exit(line_buff);
@@ -36,7 +36,7 @@ warray read_wisdoms(const char *fname) {
     char **items = malloc(sizeof(char *) * max_lines);
     if (items == NULL) free_array_and_exit(items, 0);
 
-    uint16_t count = 0;
+    uint32_t count = 0;
     while (fgets(line_buff, buff_size, fp)) {
         /* grow the array dynamically */
         if (count == max_lines) {
@@ -53,7 +53,7 @@ warray read_wisdoms(const char *fname) {
     free(line_buff);
 
     /* shrink the array to match line count */
-    char **newitems = realloc(items, sizeof(char* ) * count);
+    char **newitems = realloc(items, sizeof(char *) * count);
     if (newitems == NULL) free_array_and_exit(items, count);
     items = newitems;
 
@@ -63,13 +63,13 @@ warray read_wisdoms(const char *fname) {
 
 /* Free allocated memory used by wisdoms. */
 void clean_wisdoms(warray wisdoms) {
-    for (uint16_t i = 0; i < wisdoms.count; i++)
+    for (uint32_t i = 0; i < wisdoms.count; i++)
         free(wisdoms.items[i]);
     free(wisdoms.items);
 }
 
 /* Pick random wisdom from the array. */
 char * pick_a_wisdom(warray wisdoms) {
-    int x = rand() % (wisdoms.count);
+    uint32_t x = rand() % (wisdoms.count);
     return wisdoms.items[x];
 }
