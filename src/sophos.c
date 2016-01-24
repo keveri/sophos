@@ -1,21 +1,13 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
 #include <arpa/inet.h>
-#include <sys/types.h>
 #include <netinet/in.h>
 #include <sys/socket.h>
 #include <stdint.h>
 #include <time.h>
 
+#include "options.c"
 #include "wisdoms.c"
 
-/* TODO: read these from arguments */
-#define PORT 4444
-#define FNAME "wisdoms.txt"
-
-struct sockaddr_in create_server(uint16_t port) {
+struct sockaddr_in create_server(uint32_t port) {
     struct sockaddr_in server = {0};
     server.sin_family      = AF_INET;
     server.sin_addr.s_addr = htonl(INADDR_ANY);
@@ -39,12 +31,13 @@ void process_connections(uint32_t sock, socklen_t socksize, warray wisdoms) {
 
 }
 
-int main() {
+int main(int argc, char **argv) {
+    options opt = parse_options(argc, argv);
     srand(time(NULL));
-    struct sockaddr_in server = create_server(PORT);
+    struct sockaddr_in server = create_server(opt.port);
     const socklen_t socksize = sizeof(struct sockaddr_in);
     const uint32_t sock = socket(AF_INET, SOCK_STREAM, 0);
-    warray wisdoms = read_wisdoms(FNAME);
+    warray wisdoms = read_wisdoms(opt.fname);
 
     /* bind to port and start listening */
     bind(sock, (struct sockaddr *)&server, sizeof(struct sockaddr));
