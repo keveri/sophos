@@ -13,9 +13,25 @@ static void free_array_and_exit(char **array, uint32_t size) {
     exit(1);
 }
 
-static void free_and_exit(char *buff) {
-    free(buff);
-    exit(1);
+static char ** array_calloc(uint32_t size) {
+    char **ptr = calloc(size, sizeof(char *));
+    if (ptr == NULL) free_array_and_exit(ptr, 0);
+    return ptr;
+}
+
+static char ** array_realloc(char **array, uint32_t size) {
+    char **new_array = realloc(array, sizeof(char *) * size);
+    if (new_array == NULL) free_array_and_exit(new_array, size);
+    return new_array;
+}
+
+static char * str_calloc(uint32_t size) {
+    char *str = calloc(size, sizeof(char));
+    if (str == NULL) {
+        free(str);
+        exit(1);
+    }
+    return str;
 }
 
 /* Read wisdoms from given file and return wisdom struct. */
@@ -27,35 +43,26 @@ warray read_wisdoms(const char *fname) {
         exit(1);
     }
 
+    uint32_t count     = 0;
     uint32_t max_lines = 36;
     uint32_t buff_size = 512;
+    char **items       = array_calloc(max_lines);
+    char *line_buff    = str_calloc(buff_size);
 
-    char *line_buff = malloc(buff_size);
-    if (line_buff == NULL) free_and_exit(line_buff);
-
-    char **items = malloc(sizeof(char *) * max_lines);
-    if (items == NULL) free_array_and_exit(items, 0);
-
-    uint32_t count = 0;
     while (fgets(line_buff, buff_size, fp)) {
         /* grow the array dynamically */
         if (count == max_lines) {
             max_lines *= 2;
-            char **newitems = realloc(items, sizeof(char *) * max_lines);
-            if (newitems == NULL) free_array_and_exit(items, count);
-            items = newitems;
+            items = array_realloc(items, max_lines);
         }
-        items[count] = malloc(strlen(line_buff) + 1);
+        items[count] = str_calloc(strlen(line_buff) + 1);
         strcpy(items[count], line_buff);
         count++;
     }
     fclose(fp);
     free(line_buff);
-
     /* shrink the array to match line count */
-    char **newitems = realloc(items, sizeof(char *) * count);
-    if (newitems == NULL) free_array_and_exit(items, count);
-    items = newitems;
+    items = array_realloc(items, count);
 
     struct warray wisdoms = { items, count };
     return wisdoms;
