@@ -1,8 +1,8 @@
-executable=sophos
+flags=-O2 -Wall -Wextra -pedantic -Wstrict-overflow -fno-strict-aliasing
 
 all:
-	gcc -O2 -Wall -Wextra -pedantic -Wstrict-overflow -fno-strict-aliasing \
-	    ${executable}.c -o ${executable}
+	gcc -c ${flags} wisdoms.c
+	gcc ${flags} sophos.c -o sophos
 
 clean:
-	rm ${executable}
+	rm sophos *.o
