@@ -1,8 +1,8 @@
 flags=-O2 -Wall -Wextra -pedantic -Wstrict-overflow -fno-strict-aliasing
 
 all:
-	gcc -c ${flags} wisdoms.c
-	gcc ${flags} sophos.c -o sophos
+	gcc ${flags} -c src/wisdoms.c -o /dev/null
+	gcc ${flags} src/sophos.c -o bin/sophos
 
 clean:
-	rm sophos *.o
+	rm bin/sophos
