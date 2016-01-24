@@ -1,5 +1,3 @@
-[![Build Status](https://img.shields.io/travis/keveri/sophos/master.svg?style=flat-square)](https://travis-ci.org/keveri/sophos)
-
 # σοφός (sophos)
 Socket server sharing wisdom.
 
