@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <string.h>
-#include <unistd.h>
+#include <getopt.h>
 
 typedef struct options { uint32_t port; char *fname; } options;
 

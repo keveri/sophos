@@ -3,6 +3,7 @@
 #include <sys/socket.h>
 #include <stdint.h>
 #include <time.h>
+#include <unistd.h>
 
 #include "options.c"
 #include "wisdoms.c"
