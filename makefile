@@ -1,4 +1,4 @@
-flags=-O2 -Wall -Wextra -pedantic -Wstrict-overflow -fno-strict-aliasing
+flags=-std=c11 -O2 -Wall -Wextra -pedantic -Wstrict-overflow -fno-strict-aliasing
 
 all:
 	gcc ${flags} -c src/wisdoms.c -o /dev/null
