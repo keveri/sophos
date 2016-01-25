@@ -1,7 +1,9 @@
 [![BSD3 License](https://img.shields.io/badge/license-BSD3-blue.svg?style=flat-square)](https://tldrlegal.com/license/bsd-3-clause-license-%28revised%29)
 
 # σοφός (sophos)
-Socket server sharing wisdom.
+_Socket server sharing wisdom._
+
+Reads rows from a given file as wisdoms. Responds with randomly chosen wisdom when a client connects.
 
 ## Setup
 Build:
