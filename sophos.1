@@ -3,8 +3,7 @@
 sophos - a socket server sharing wisdom
 .SH SYNOPSIS
 .B sophos
-.RB [-p\ port]
-.RB [-f\ file]
+[\fIOPTION\fR]\.\.\. [\fIFILE\fR]
 .SH DESCRIPTION
 sophos loads wisdoms line by line from a given file. Randomly shares one wisdom
 per connected client using a socket listening on given port.
@@ -13,8 +12,19 @@ per connected client using a socket listening on given port.
 .B \-p port
 Specify the port for the socket.
 .TP
-.B \-f file
-Specify the file containing wisdoms.
+With no FILE read standard input.
+.SH EXAMPLES
+FILE can be read from a path:
+.PP
+.RS
+.B sophos -p 4444 wisdoms.txt
+.RE
+.PP
+or from standard input:
+.RS
+.PP
+.B cat wisdoms.txt | sophos -p 4444
+.RE
 .SH BUGS
 Report issues to GitHub repository: https://github.com/keveri/sophos/issues
 .SH AUTHOR
