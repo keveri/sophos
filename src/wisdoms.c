@@ -36,20 +36,14 @@ static char * str_calloc(uint32_t size) {
 
 /* Read wisdoms from given file and return wisdom struct. */
 /* TODO: increase line_buff if long lines appear */
-warray read_wisdoms(const char *fname) {
-    FILE *fp = fopen(fname, "r");
-    if (fp == 0) {
-        fprintf(stderr, "Failed to open file %s\n", fname);
-        exit(1);
-    }
-
+warray read_wisdoms(FILE *input) {
     uint32_t count     = 0;
     uint32_t max_lines = 36;
     uint32_t buff_size = 512;
     char **items       = array_calloc(max_lines);
     char *line_buff    = str_calloc(buff_size);
 
-    while (fgets(line_buff, buff_size, fp)) {
+    while (fgets(line_buff, buff_size, input)) {
         /* grow the array dynamically */
         if (count == max_lines) {
             max_lines *= 2;
@@ -59,7 +53,7 @@ warray read_wisdoms(const char *fname) {
         strcpy(items[count], line_buff);
         count++;
     }
-    fclose(fp);
+    if (input != stdin) fclose(input);
     free(line_buff);
     /* shrink the array to match line count */
     items = array_realloc(items, count);

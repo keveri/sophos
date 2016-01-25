@@ -52,7 +52,7 @@ int main(int argc, char **argv) {
     const struct sockaddr_in server = create_server(opt.port);
     const socklen_t socksize        = sizeof(struct sockaddr_in);
     const uint32_t sock             = socket(AF_INET, SOCK_STREAM, 0);
-    const warray wisdoms            = read_wisdoms(opt.fname);
+    const warray wisdoms            = read_wisdoms(opt.input);
 
     bind_and_listen_to_port(sock, server);
     process_connections(sock, socksize, wisdoms);
