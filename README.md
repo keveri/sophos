@@ -24,7 +24,7 @@ $ man ./sophos.1
 
 Examples:
 ```
-$ bin/sophos -p 4444 -f wisdoms.txt
+$ bin/sophos -p 4444 wisdoms.txt
 
 $ cat wisdoms.txt | sophos -p 4444
 ```
