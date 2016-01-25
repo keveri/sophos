@@ -39,7 +39,7 @@ static void process_connections(const uint32_t sock, socklen_t socksize,
 
     while(conn_sock) {
         msg = pick_a_wisdom(wisdoms);
-        printf("Connection from: %s\n", inet_ntoa(client.sin_addr));
+        printf("Shared a wisdom with %s\n", inet_ntoa(client.sin_addr));
         send(conn_sock, msg, strlen(msg), 0);
         close(conn_sock);
         conn_sock = accept(sock, (struct sockaddr *)&client, &socksize);
@@ -54,7 +54,9 @@ int main(int argc, char **argv) {
     const uint32_t sock             = socket(AF_INET, SOCK_STREAM, 0);
     const warray wisdoms            = read_wisdoms(opt.input);
 
+    printf("Binding socket...\n");
     bind_and_listen_to_port(sock, server);
+    printf("Waiting for connections...\n");
     process_connections(sock, socksize, wisdoms);
 
     clean_wisdoms(wisdoms);
