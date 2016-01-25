@@ -22,7 +22,9 @@ Man page:
 $ man ./sophos.1
 ```
 
-Example:
+Examples:
 ```
 $ bin/sophos -p 4444 -f wisdoms.txt
+
+$ cat wisdoms.txt | sophos -p 4444
 ```
