@@ -16,7 +16,12 @@ Clean:
 $ make clean
 ```
 
-## Run
+## Usage
+Man page:
+```
+$ man ./sophos.1
+```
+
 Example:
 ```
 $ bin/sophos -p 4444 -f wisdoms.txt
