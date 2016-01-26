@@ -37,7 +37,9 @@ options parse_options(int argc, char **argv) {
             break;
         }
     }
-    if (port < 1) help_and_exit();
+    if (port < 1) {
+      help_and_exit();
+    }
     FILE *input = choose_input(argc, argv);
     struct options o = { port, input };
     return o;
